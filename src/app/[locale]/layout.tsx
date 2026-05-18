@@ -34,6 +34,9 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: 'en_PK',
     },
     robots: { index: true, follow: true },
+    verification: {
+      google: 'plPQRO99KIE6nKs1hOVYMyxctPD-BEJ_grOFbPZzKLo',
+    },
   };
 }
 
