@@ -10,11 +10,10 @@ type Props = {
 };
 
 export function WorkerCard({ locale, profile }: Props) {
-  const isUr = locale === 'ur';
-  const city = profile.city ? (isUr ? profile.city.name_ur : profile.city.name_en) : '';
-  const area = profile.area ? (isUr ? profile.area.name_ur : profile.area.name_en) : '';
+  const city = profile.city ? (profile.city.name_en) : '';
+  const area = profile.area ? (profile.area.name_en) : '';
   const primaryCat = profile.categories?.[0];
-  const catName = primaryCat ? (isUr ? primaryCat.name_ur : primaryCat.name_en) : '';
+  const catName = primaryCat ? (primaryCat.name_en) : '';
 
   return (
     <Link
@@ -62,7 +61,7 @@ export function WorkerCard({ locale, profile }: Props) {
               <div className="text-base font-bold text-neutral-900">
                 {formatPKR(profile.daily_rate_pkr)}
               </div>
-              <div className="text-xs text-neutral-500">{isUr ? '/ دن' : '/ day'}</div>
+              <div className="text-xs text-neutral-500">/ day</div>
             </div>
           )}
         </div>

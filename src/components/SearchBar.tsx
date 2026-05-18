@@ -17,7 +17,6 @@ export function SearchBar({
 }) {
   const t = useTranslations('home');
   const router = useRouter();
-  const isUr = locale === 'ur';
   const [city, setCity] = useState('');
   const [cat, setCat] = useState('');
 
@@ -45,16 +44,16 @@ export function SearchBar({
       >
         <option value="">{t('searchCity')}</option>
         {major.length > 0 && (
-          <optgroup label={isUr ? 'بڑے شہر' : 'Major cities'}>
+          <optgroup label="Major cities">
             {major.map((c) => (
-              <option key={c.id} value={c.slug}>{isUr ? c.name_ur : c.name_en}</option>
+              <option key={c.id} value={c.slug}>{c.name_en}</option>
             ))}
           </optgroup>
         )}
         {rest.length > 0 && (
-          <optgroup label={isUr ? 'دیگر شہر' : 'Other cities'}>
+          <optgroup label="Other cities">
             {rest.map((c) => (
-              <option key={c.id} value={c.slug}>{isUr ? c.name_ur : c.name_en}</option>
+              <option key={c.id} value={c.slug}>{c.name_en}</option>
             ))}
           </optgroup>
         )}
@@ -67,7 +66,7 @@ export function SearchBar({
       >
         <option value="">{t('searchCategory')}</option>
         {categories.map((c) => (
-          <option key={c.id} value={c.slug}>{isUr ? c.name_ur : c.name_en}</option>
+          <option key={c.id} value={c.slug}>{c.name_en}</option>
         ))}
       </select>
       <button type="submit" className="btn-primary px-6 py-3 text-base">

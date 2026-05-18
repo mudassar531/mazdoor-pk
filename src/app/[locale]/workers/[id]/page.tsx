@@ -19,12 +19,11 @@ export async function generateMetadata({
     .eq('is_active', true).eq('is_blocked', false)
     .single();
   if (!data) return { title: 'Not found' };
-  const isUr = locale === 'ur';
-  const city = data.city ? (isUr ? data.city.name_ur : data.city.name_en) : '';
+  const city = data.city ? (data.city.name_en) : '';
   const cat = data.profile_categories?.[0]?.category;
-  const catName = cat ? (isUr ? cat.name_ur : cat.name_en) : '';
+  const catName = cat ? (cat.name_en) : '';
   const title = `${data.full_name} — ${catName}${city ? ` in ${city}` : ''}`;
-  return { title, description: data.bio_en ?? data.bio_ur ?? title };
+  return { title, description: data.bio_en ?? title };
 }
 
 export default async function WorkerPage({
@@ -51,12 +50,10 @@ export default async function WorkerPage({
       </div>
     );
   }
-
-  const isUr = locale === 'ur';
-  const city = profile.city ? (isUr ? profile.city.name_ur : profile.city.name_en) : '';
-  const area = profile.area ? (isUr ? profile.area.name_ur : profile.area.name_en) : '';
+  const city = profile.city ? (profile.city.name_en) : '';
+  const area = profile.area ? (profile.area.name_en) : '';
   const categories = (profile.profile_categories ?? []).map((pc: any) => pc.category).filter(Boolean);
-  const bio = isUr ? profile.bio_ur : profile.bio_en;
+  const bio = profile.bio_en;
   const phoneNorm = normalizePhone(profile.phone);
   const waPhone = profile.whatsapp_same ? profile.phone : (profile.whatsapp_phone || profile.phone);
 
@@ -112,7 +109,7 @@ export default async function WorkerPage({
                 <div className="mt-2 flex flex-wrap gap-2">
                   {categories.map((c: any) => (
                     <span key={c.id} className="rounded-full bg-brand-50 px-3 py-1 text-sm font-medium text-brand-700 ring-1 ring-brand-100">
-                      {isUr ? c.name_ur : c.name_en}
+                      {c.name_en}
                     </span>
                   ))}
                 </div>
@@ -150,12 +147,12 @@ export default async function WorkerPage({
 
         <aside className="lg:sticky lg:top-20 lg:self-start">
           <div className="card space-y-3 p-5">
-            <div className="text-sm text-neutral-600">{isUr ? 'براہِ راست رابطہ' : 'Contact directly'}</div>
+            <div className="text-sm text-neutral-600">Contact directly</div>
             <a href={`tel:${phoneNorm}`} className="btn-primary w-full py-3 text-base">
               <Phone className="h-4 w-4" /> {t('worker.call')} — {phoneNorm}
             </a>
             <a
-              href={waLink(waPhone, isUr ? 'سلام، میں مزدور پی کے سے رابطہ کر رہا ہوں۔' : 'Hi, I found you on MazdoorPK.')}
+              href={waLink(waPhone, 'Hi, I found you on MazdoorPK.')}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-accent w-full py-3 text-base"
@@ -163,9 +160,7 @@ export default async function WorkerPage({
               <MessageCircle className="h-4 w-4" /> {t('worker.whatsapp')}
             </a>
             <p className="pt-2 text-xs text-neutral-500">
-              {isUr
-                ? 'مزدور پی کے کوئی کمیشن نہیں لیتا۔ کوئی بھی ادائیگی اور معاہدہ آپ اور کاریگر کے درمیان ہے۔'
-                : 'MazdoorPK takes no commission. Any payment and agreement is between you and the worker.'}
+              MazdoorPK takes no commission. Any payment and agreement is between you and the worker.
             </p>
           </div>
         </aside>

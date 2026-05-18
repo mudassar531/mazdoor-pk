@@ -19,7 +19,6 @@ export function ProfileEditor({ locale, user, profile, cities, categories, initi
   const t = useTranslations('onboarding');
   const tc = useTranslations('common');
   const router = useRouter();
-  const isUr = locale === 'ur';
 
   const [fullName, setFullName] = useState(profile?.full_name ?? '');
   const [phone, setPhone] = useState(profile?.phone ?? '');
@@ -35,7 +34,6 @@ export function ProfileEditor({ locale, user, profile, cities, categories, initi
   const [dailyRate, setDailyRate] = useState(profile?.daily_rate_pkr ?? '');
   const [hourlyRate, setHourlyRate] = useState(profile?.hourly_rate_pkr ?? '');
   const [bioEn, setBioEn] = useState(profile?.bio_en ?? '');
-  const [bioUr, setBioUr] = useState(profile?.bio_ur ?? '');
   const [photoUrl, setPhotoUrl] = useState<string | null>(profile?.photo_url ?? null);
   const [msg, setMsg] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
@@ -89,7 +87,6 @@ export function ProfileEditor({ locale, user, profile, cities, categories, initi
       daily_rate_pkr: dailyRate ? Number(dailyRate) : null,
       hourly_rate_pkr: hourlyRate ? Number(hourlyRate) : null,
       bio_en: bioEn || null,
-      bio_ur: bioUr || null,
       photo_url: photoUrl,
       is_active: true,
     };
@@ -149,7 +146,7 @@ export function ProfileEditor({ locale, user, profile, cities, categories, initi
           <select required className="input" value={cityId} onChange={(e) => onCityChange(e.target.value ? Number(e.target.value) : '')}>
             <option value="">—</option>
             {cities.map((c) => (
-              <option key={c.id} value={c.id}>{isUr ? c.name_ur : c.name_en}</option>
+              <option key={c.id} value={c.id}>{c.name_en}</option>
             ))}
           </select>
         </div>
@@ -158,7 +155,7 @@ export function ProfileEditor({ locale, user, profile, cities, categories, initi
           <select className="input" value={areaId} onChange={(e) => setAreaId(e.target.value ? Number(e.target.value) : '')} disabled={!cityId || areas.length === 0}>
             <option value="">—</option>
             {areas.map((a) => (
-              <option key={a.id} value={a.id}>{isUr ? a.name_ur : a.name_en}</option>
+              <option key={a.id} value={a.id}>{a.name_en}</option>
             ))}
           </select>
         </div>
@@ -176,7 +173,7 @@ export function ProfileEditor({ locale, user, profile, cities, categories, initi
                 onClick={() => toggleCat(c.id)}
                 className={`rounded-full px-3 py-1.5 text-sm font-medium transition ${active ? 'bg-brand-600 text-white' : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'}`}
               >
-                {isUr ? c.name_ur : c.name_en}
+                {c.name_en}
               </button>
             );
           })}
@@ -201,10 +198,6 @@ export function ProfileEditor({ locale, user, profile, cities, categories, initi
       <div>
         <label className="label">{t('bioEn')}</label>
         <textarea className="input min-h-[80px]" value={bioEn} onChange={(e) => setBioEn(e.target.value)} />
-      </div>
-      <div>
-        <label className="label">{t('bioUr')}</label>
-        <textarea className="input min-h-[80px]" dir="rtl" value={bioUr} onChange={(e) => setBioUr(e.target.value)} />
       </div>
 
       {err && <p className="rounded bg-red-50 px-3 py-2 text-sm text-red-700">{err}</p>}

@@ -13,7 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
 
   const out: MetadataRoute.Sitemap = [];
-  for (const locale of ['en', 'ur'] as const) {
+  for (const locale of ['en'] as const) {
     out.push({ url: `${base}/${locale}`, changeFrequency: 'daily', priority: 1 });
     out.push({ url: `${base}/${locale}/browse`, changeFrequency: 'daily', priority: 0.8 });
     out.push({ url: `${base}/${locale}/about`, changeFrequency: 'monthly' });

@@ -15,7 +15,6 @@ export function CategoryGrid({
   locale: string;
   categories: Category[];
 }) {
-  const isUr = locale === 'ur';
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
       {categories.map((c) => {
@@ -30,7 +29,7 @@ export function CategoryGrid({
               <Icon className="h-6 w-6" />
             </span>
             <span className="text-sm font-medium text-neutral-800 group-hover:text-brand-700">
-              {isUr ? c.name_ur : c.name_en}
+              {c.name_en}
             </span>
           </Link>
         );

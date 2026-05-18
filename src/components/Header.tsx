@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Wrench } from 'lucide-react';
-import { LanguageToggle } from './LanguageToggle';
 import { HeaderAuth } from './HeaderAuth';
 import { getTranslations } from 'next-intl/server';
 
@@ -24,7 +23,6 @@ export async function Header({ locale }: { locale: string }) {
         </nav>
 
         <div className="flex items-center gap-2">
-          <LanguageToggle currentLocale={locale} />
           <HeaderAuth locale={locale} />
         </div>
       </div>

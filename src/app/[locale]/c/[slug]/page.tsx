@@ -25,15 +25,12 @@ export async function generateMetadata({
     supabase.from('cities').select('*').eq('slug', parsed.citySlug).maybeSingle(),
   ]);
   if (!category || !city) return { title: 'Not found' };
-  const isUr = locale === 'ur';
-  const catName = isUr ? category.name_ur : category.name_en;
-  const cityName = isUr ? city.name_ur : city.name_en;
-  const title = isUr ? `${cityName} میں ${catName}` : `${catName} in ${cityName}`;
+  const catName = category.name_en;
+  const cityName = city.name_en;
+  const title = `${catName} in ${cityName}`;
   return {
     title,
-    description: isUr
-      ? `${cityName} میں قابلِ اعتماد ${catName} تلاش کریں — براہِ راست رابطہ، کوئی فیس نہیں۔`
-      : `Find trusted ${catName.toLowerCase()} in ${cityName} — direct contact, no fees.`,
+    description: `Find trusted ${catName.toLowerCase()} in ${cityName} — direct contact, no fees.`,
   };
 }
 
@@ -66,32 +63,28 @@ export default async function CategoryCityPage({
     ...p,
     categories: (p.profile_categories ?? []).map((pc: any) => pc.category).filter(Boolean),
   }));
-
-  const isUr = locale === 'ur';
-  const catName = isUr ? category.name_ur : category.name_en;
-  const cityName = isUr ? city.name_ur : city.name_en;
+  const catName = category.name_en;
+  const cityName = city.name_en;
 
   return (
     <div className="container py-8">
       <nav className="text-sm text-neutral-500">
-        <Link href={`/${locale}`} className="hover:text-brand-700">{isUr ? 'ہوم' : 'Home'}</Link>
+        <Link href={`/${locale}`} className="hover:text-brand-700">Home</Link>
         <span className="mx-2">/</span>
         <Link href={`/${locale}/browse?category=${category.slug}`} className="hover:text-brand-700">{catName}</Link>
         <span className="mx-2">/</span>
         <span className="text-neutral-700">{cityName}</span>
       </nav>
       <h1 className="mt-3 text-3xl font-bold text-neutral-900">
-        {isUr ? `${cityName} میں ${catName}` : `${catName} in ${cityName}`}
+        {`${catName} in ${cityName}`}
       </h1>
       <p className="mt-1 text-neutral-600">
-        {isUr
-          ? `${cityName} میں قابلِ اعتماد ${catName} تلاش کریں۔`
-          : `Trusted local ${catName.toLowerCase()} available in ${cityName}.`}
+        {`Trusted local ${catName.toLowerCase()} available in ${cityName}.`}
       </p>
 
       {mapped.length === 0 ? (
         <p className="mt-10 rounded-lg bg-neutral-100 p-6 text-center text-neutral-600">
-          {isUr ? 'ابھی کوئی کاریگر نہیں۔ بہت جلد۔' : 'No listings yet. Check back soon.'}
+          No listings yet. Check back soon.
         </p>
       ) : (
         <div className="mt-8 grid gap-3 md:grid-cols-2 lg:grid-cols-3">

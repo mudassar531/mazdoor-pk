@@ -22,7 +22,6 @@ export function BrowseFilters({
   const router = useRouter();
   const sParams = useSearchParams();
   const t = useTranslations('browse');
-  const isUr = locale === 'ur';
 
   function update(key: string, value: string) {
     const params = new URLSearchParams(sParams.toString());
@@ -41,7 +40,7 @@ export function BrowseFilters({
         <select className="input" value={sp.city ?? ''} onChange={(e) => update('city', e.target.value)}>
           <option value="">{t('all')}</option>
           {cities.map((c) => (
-            <option key={c.id} value={c.slug}>{isUr ? c.name_ur : c.name_en}</option>
+            <option key={c.id} value={c.slug}>{c.name_en}</option>
           ))}
         </select>
       </div>
@@ -56,7 +55,7 @@ export function BrowseFilters({
         >
           <option value="">{t('anyArea')}</option>
           {areas.map((a) => (
-            <option key={a.id} value={a.slug}>{isUr ? a.name_ur : a.name_en}</option>
+            <option key={a.id} value={a.slug}>{a.name_en}</option>
           ))}
         </select>
       </div>
@@ -66,7 +65,7 @@ export function BrowseFilters({
         <select className="input" value={sp.category ?? ''} onChange={(e) => update('category', e.target.value)}>
           <option value="">{t('all')}</option>
           {categories.map((c) => (
-            <option key={c.id} value={c.slug}>{isUr ? c.name_ur : c.name_en}</option>
+            <option key={c.id} value={c.slug}>{c.name_en}</option>
           ))}
         </select>
       </div>
