@@ -24,6 +24,8 @@ export async function Footer({ locale }: { locale: string }) {
               <li><Link href={`/${locale}/about`} className="hover:text-brand-700">{t('nav.about')}</Link></li>
               <li><Link href={`/${locale}/how-it-works`} className="hover:text-brand-700">{t('nav.howItWorks')}</Link></li>
               <li><Link href={`/${locale}/contact`} className="hover:text-brand-700">{t('nav.contact')}</Link></li>
+              <li><Link href={`/${locale}/privacy`} className="hover:text-brand-700">Privacy</Link></li>
+              <li><Link href={`/${locale}/terms`} className="hover:text-brand-700">Terms</Link></li>
             </ul>
           </div>
           <div>

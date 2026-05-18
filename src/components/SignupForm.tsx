@@ -14,9 +14,11 @@ export function SignupForm({ locale }: { locale: string }) {
   const [err, setErr] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [hp, setHp] = useState(''); // honeypot
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (hp) { setErr('Spam detected'); return; }
     setErr(null); setMsg(null); setBusy(true);
     const supabase = createClient();
     const { data, error } = await supabase.auth.signUp({
@@ -42,6 +44,17 @@ export function SignupForm({ locale }: { locale: string }) {
     <div className="card p-6">
       <h1 className="text-2xl font-bold">{t('signupTitle')}</h1>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
+        {/* honeypot */}
+        <input
+          type="text"
+          name="company"
+          tabIndex={-1}
+          autoComplete="off"
+          value={hp}
+          onChange={(e) => setHp(e.target.value)}
+          aria-hidden="true"
+          className="absolute left-[-9999px] h-0 w-0 opacity-0"
+        />
         <div>
           <label className="label">{t('email')}</label>
           <input type="email" required className="input" value={email} onChange={(e) => setEmail(e.target.value)} />

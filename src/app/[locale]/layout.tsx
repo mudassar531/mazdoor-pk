@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { locales, type Locale } from '@/lib/i18n/config';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -58,6 +60,8 @@ export default async function LocaleLayout({
           <main className="min-h-[calc(100vh-9rem)]">{children}</main>
           <Footer locale={locale} />
         </NextIntlClientProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

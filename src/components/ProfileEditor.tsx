@@ -57,6 +57,9 @@ export function ProfileEditor({ locale, user, profile, cities, categories, initi
   }
 
   async function uploadPhoto(file: File) {
+    if (!file.type.startsWith('image/')) { setErr('Only image files allowed'); return; }
+    if (file.size > 5 * 1024 * 1024) { setErr('Image must be under 5MB'); return; }
+    setErr(null);
     const supabase = createClient();
     const ext = file.name.split('.').pop();
     const path = `${user.id}/${Date.now()}.${ext}`;
