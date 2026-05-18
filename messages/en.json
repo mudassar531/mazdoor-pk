@@ -91,8 +91,7 @@
     "years": "Years of experience",
     "dailyRate": "Daily rate (PKR)",
     "hourlyRate": "Hourly rate (PKR, optional)",
-    "bioEn": "Short bio (English, optional)",
-    "bioUr": "مختصر تعارف (اردو، اختیاری)",
+    "bioEn": "Short bio (optional)",
     "photo": "Profile photo (optional)",
     "save": "Save and go live",
     "saved": "Profile saved! You're live on MazdoorPK.",
@@ -119,9 +118,6 @@
     "block": "Block",
     "unblock": "Unblock",
     "delete": "Delete"
-  },
-  "lang": {
-    "switch": "اردو"
   },
   "about": {
     "title": "About MazdoorPK",
