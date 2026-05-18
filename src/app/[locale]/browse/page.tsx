@@ -18,8 +18,8 @@ export default async function BrowsePage({
   const supabase = createClient();
 
   const [{ data: cities }, { data: categories }] = await Promise.all([
-    supabase.from('cities').select('*').order('is_major', { ascending: false }).order('name_en'),
-    supabase.from('categories').select('*').order('sort_order'),
+    supabase.from('cities').select('id,slug,name_en,is_major').order('is_major', { ascending: false }).order('name_en'),
+    supabase.from('categories').select('id,slug,name_en,icon,sort_order').order('sort_order'),
   ]);
 
   const city = (cities ?? []).find((c) => c.slug === searchParams.city);
@@ -27,7 +27,7 @@ export default async function BrowsePage({
 
   let areas: any[] = [];
   if (city) {
-    const { data } = await supabase.from('areas').select('*').eq('city_id', city.id).order('name_en');
+    const { data } = await supabase.from('areas').select('id,city_id,slug,name_en').eq('city_id', city.id).order('name_en');
     areas = data ?? [];
   }
   const area = areas.find((a) => a.slug === searchParams.area);

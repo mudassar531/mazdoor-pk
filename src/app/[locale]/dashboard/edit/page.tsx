@@ -11,13 +11,13 @@ export default async function EditProfilePage({ params: { locale } }: { params: 
 
   const [{ data: profile }, { data: cities }, { data: categories }] = await Promise.all([
     supabase.from('profiles').select('*, profile_categories(category_id)').eq('id', user.id).maybeSingle(),
-    supabase.from('cities').select('*').order('is_major', { ascending: false }).order('name_en'),
-    supabase.from('categories').select('*').order('sort_order'),
+    supabase.from('cities').select('id,slug,name_en,is_major').order('is_major', { ascending: false }).order('name_en'),
+    supabase.from('categories').select('id,slug,name_en,icon,sort_order').order('sort_order'),
   ]);
 
   let areas: any[] = [];
   if (profile?.city_id) {
-    const { data } = await supabase.from('areas').select('*').eq('city_id', profile.city_id).order('name_en');
+    const { data } = await supabase.from('areas').select('id,city_id,slug,name_en').eq('city_id', profile.city_id).order('name_en');
     areas = data ?? [];
   }
 

@@ -12,8 +12,8 @@ export default async function Home({ params: { locale } }: { params: { locale: s
   const supabase = createClient();
 
   const [{ data: cities }, { data: categories }, { data: recent }] = await Promise.all([
-    supabase.from('cities').select('*').order('is_major', { ascending: false }).order('name_en'),
-    supabase.from('categories').select('*').order('sort_order'),
+    supabase.from('cities').select('id,slug,name_en,is_major').order('is_major', { ascending: false }).order('name_en'),
+    supabase.from('categories').select('id,slug,name_en,icon,sort_order').order('sort_order'),
     supabase
       .from('profiles')
       .select('*, city:cities(*), area:areas(*), profile_categories(category:categories(*))')

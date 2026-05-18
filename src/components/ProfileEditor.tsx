@@ -44,7 +44,7 @@ export function ProfileEditor({ locale, user, profile, cities, categories, initi
     setAreaId('');
     if (!id) { setAreas([]); return; }
     const supabase = createClient();
-    const { data } = await supabase.from('areas').select('*').eq('city_id', id).order('name_en');
+    const { data } = await supabase.from('areas').select('id,city_id,slug,name_en').eq('city_id', id).order('name_en');
     setAreas(data ?? []);
   }
 

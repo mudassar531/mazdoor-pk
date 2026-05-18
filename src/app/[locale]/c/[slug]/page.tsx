@@ -21,8 +21,8 @@ export async function generateMetadata({
   if (!parsed) return { title: 'Not found' };
   const supabase = createClient();
   const [{ data: category }, { data: city }] = await Promise.all([
-    supabase.from('categories').select('*').eq('slug', parsed.categorySlug).maybeSingle(),
-    supabase.from('cities').select('*').eq('slug', parsed.citySlug).maybeSingle(),
+    supabase.from('categories').select('id,slug,name_en,icon,sort_order').eq('slug', parsed.categorySlug).maybeSingle(),
+    supabase.from('cities').select('id,slug,name_en,is_major').eq('slug', parsed.citySlug).maybeSingle(),
   ]);
   if (!category || !city) return { title: 'Not found' };
   const catName = category.name_en;
@@ -45,8 +45,8 @@ export default async function CategoryCityPage({
 
   const supabase = createClient();
   const [{ data: category }, { data: city }] = await Promise.all([
-    supabase.from('categories').select('*').eq('slug', parsed.categorySlug).maybeSingle(),
-    supabase.from('cities').select('*').eq('slug', parsed.citySlug).maybeSingle(),
+    supabase.from('categories').select('id,slug,name_en,icon,sort_order').eq('slug', parsed.categorySlug).maybeSingle(),
+    supabase.from('cities').select('id,slug,name_en,is_major').eq('slug', parsed.citySlug).maybeSingle(),
   ]);
   if (!category || !city) notFound();
 
